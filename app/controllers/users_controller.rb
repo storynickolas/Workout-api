@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.where(:id => params[:id])
+    # .includes(schedule: {workout_days: [:workout]})
     if user
       render json: user
     else

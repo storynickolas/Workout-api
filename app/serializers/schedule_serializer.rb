@@ -1,3 +1,4 @@
 class ScheduleSerializer < ActiveModel::Serializer
-  attributes :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
+  attributes :id
+  has_many :workout_days
 end

@@ -31,5 +31,9 @@ WorkoutExercise.create!(exercise_id: 6, workout_id: 2, reps: 12, sets: 4)
 WorkoutExercise.create!(exercise_id: 7, workout_id: 2, reps: 12, sets: 4)
 WorkoutExercise.create!(exercise_id: 8, workout_id: 2, reps: 12, sets: 4)
 
-Schedule.create!(user_id: 1, monday: "Back & Biceps", wednesday: "Chest & Triceps")
+Schedule.create!(user_id: 1)
+
+
+WorkoutDay.create!(schedule_id: 1, workout_id: 1, day: "Monday")
+WorkoutDay.create!(schedule_id: 1, workout_id: 2, day: "Wednesday")
 
