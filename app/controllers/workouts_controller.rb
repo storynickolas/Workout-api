@@ -29,28 +29,32 @@ class WorkoutsController < ApplicationController
       workout.destroy
       head :no_content
     elsif 
-      render json: {errors: ["Not the owner of Workout"]}, status: :not_found
+      render json: {errors: ["Only The Owner of This Workout Can Delete It"]}, status: :not_found
     else
       render json: {errors: ["Workout Does Not Exist"]}, status: :not_found
     end
   end
 
   def userWorkouts
-    workout = Workout.where(:user_id => params[:id])
-    if workout
+    workout = Workout.find_by(:user_id => params[:id])
+    if workout && session[:user_id] == workout.user_id
       render json: workout
+    elsif 
+      render json: {errors: ["Only The Owner of This Workout Can Request This Info"]}, status: :not_found
     else
-      render_not_found_response
+      render json: {errors: ["Workout Does Not Exist"]}, status: :not_found
     end
   end
 
   def update
-    workout = Workout.where(:id => params[:id])
-    if workout
+    workout = Workout.find_by(:id => params[:id])
+    if workout && session[:user_id] == workout.user_id
       workout.update(workout_params)
       render json: workout
+    elsif 
+      render json: {errors: ["Only The Owner of This Workout Can Modify It"]}, status: :not_found
     else
-      render_not_found_response
+      render json: {errors: ["Workout Does Not Exist"]}, status: :not_found
     end
   
   end
