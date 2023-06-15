@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :create, :destroy]
+  skip_before_action :authorized, only: [:index, :show]
 
   def index
     render json: Workout.all
