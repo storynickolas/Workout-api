@@ -7,9 +7,10 @@ class UsersController < ApplicationController
 
   def show
     user = User.where(:id => params[:id])
-    # .includes(schedule: {workout_days: [:workout]})
-    if user
+    if user  && session[:user_id] == user[0].id
       render json: user
+    elsif user
+      render json: {errors: ["Not Authorized"]}, status: :unauthorized
     else
       render_not_found_response
     end
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
       user.destroy
       head :no_content
     else
-      render json: {errors: ["Exercise Does Not Exist"]}, status: :not_found
+      render json: {errors: ["User Does Not Exist"]}, status: :not_found
     end
   end
 

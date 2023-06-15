@@ -1,5 +1,5 @@
 class SchedulesController < ApplicationController
-  skip_before_action :authorized, only: [:index, :create]
+  skip_before_action :authorized, only: [:index, :show, :create]
 
   def index
     render json: Schedule.all
@@ -24,12 +24,12 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    exercise = Schedule.find_by(id: params[:id])
+    schedule = Schedule.find_by(id: params[:id])
     if schedule 
       schedule.destroy
       head :no_content
     else
-      render json: {errors: ["Exercise Does Not Exist"]}, status: :not_found
+      render json: {errors: ["Schedule Does Not Exist"]}, status: :not_found
     end
   end
 
@@ -37,7 +37,7 @@ class SchedulesController < ApplicationController
   # all methods below here are private
 
   def schedule_params
-    params.permit(:user_id, :monday, :tuesday, :thursday, :friday)
+    params.permit(:user_id, :Tuesday)
   end
 
 end

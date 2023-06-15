@@ -32,11 +32,22 @@ class WorkoutExercisesController < ApplicationController
     end
   end
 
+  def update
+    program = WorkoutExercise.where(:id => params[:id])
+    if program
+      program.update(program_params)
+      render json: program
+    else
+      render_not_found_response
+    end
+  
+  end
+
   private
   # all methods below here are private
 
   def program_params
-    params.permit(:workout_id, :exercise_id)
+    params.permit(:workout_id, :exercise_id, :reps, :sets)
   end
 
 end

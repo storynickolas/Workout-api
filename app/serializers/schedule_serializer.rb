@@ -1,4 +1,4 @@
 class ScheduleSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :user_id
   has_many :workout_days
 end

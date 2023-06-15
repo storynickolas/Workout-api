@@ -1,4 +1,5 @@
 class ExercisesController < ApplicationController
+  skip_before_action :authorized, only: [:index, :show]
 
   def index
     render json: Exercise.all
@@ -38,5 +39,5 @@ class ExercisesController < ApplicationController
   def exercise_params
     params.permit(:name, :muscle_group, :video)
   end
-  
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_06_120615) do
+ActiveRecord::Schema.define(version: 2023_05_20_164227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 2023_05_06_120615) do
     t.integer "workout_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "saved_workouts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "workout_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_saved_workouts_on_user_id"
+    t.index ["workout_id"], name: "index_saved_workouts_on_workout_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -70,6 +79,7 @@ ActiveRecord::Schema.define(version: 2023_05_06_120615) do
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.integer "time"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
