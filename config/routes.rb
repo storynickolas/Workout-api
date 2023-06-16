@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :workouts, only: [:index, :show, :create, :destroy, :update]
   resources :exercises, only: [:index]
-  resources :users, only: [:show]
-  resources :workout_days, only: [:index, :create, :destroy]
+  resources :users, only: [:show, :index, :destroy]
+  resources :workout_days, only: [:show, :create, :destroy]
+  resources :workout_exercises, only: [:create, :update]
 
 
   resources :schedules, only: [:show]

@@ -5,12 +5,16 @@ class WorkoutDaysController < ApplicationController
   end
 
   def show
-    day = WorkoutDay.where(:id => params[:id])
-    if day
+    day = WorkoutDay.find_by(:id => params[:id])
+    if day && session[:user_id] == day.schedule.user_id
       render json: day, include: [:workout_exercises ]
+
+    elsif 
+      render json: {errors: ["Only The Owner of This Schedule Can Request This Info"]}, status: :not_found
     else
-      render_not_found_response
+      render json: {errors: ["Day Does Not Exist"]}, status: :not_found
     end
+ 
   end
 
   def create
@@ -20,13 +24,16 @@ class WorkoutDaysController < ApplicationController
     else
       render json: { errors: day.errors.full_messages }, status: :unprocessable_entity
     end
+
   end
 
   def destroy
     day = WorkoutDay.find_by(id: params[:id])
-    if day 
+    if day && session[:user_id] == day.schedule.user_id
       day.destroy
       head :no_content
+    elsif 
+      render json: {errors: ["Only The Owner of This Schedule Can Delete This Info"]}, status: :not_found
     else
       render json: {errors: ["Day Does Not Exist"]}, status: :not_found
     end
