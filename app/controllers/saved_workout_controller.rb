@@ -25,7 +25,7 @@ class SavedWorkoutController < ApplicationController
   def destroy
     saved = SavedWorkout.find_by(id: params[:id])
     if saved 
-      exercise.destroy
+      saved.destroy
       head :no_content
     else
       render json: {errors: ["Workout Does Not Exist"]}, status: :not_found
