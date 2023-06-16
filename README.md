@@ -2,8 +2,8 @@
 
 # Workout Creator: React/Rails API APP
 
-Accompanying Front End React Project Located Here:
-
+## Accompanying Front End React Project Located Here:
+[workout-frontend](https://github.com/storynickolas/Workout-Plan-Creator)
 
 
 ## Description
