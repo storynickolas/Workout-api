@@ -36,8 +36,8 @@ class WorkoutsController < ApplicationController
   end
 
   def userWorkouts
-    workout = Workout.find_by(:user_id => params[:id])
-    if workout && session[:user_id] == workout.user_id
+    workout = Workout.all.where(:user_id => params[:id])
+    if workout && session[:user_id] == workout[0].user_id
       render json: workout
     elsif 
       render json: {errors: ["Only The Owner of This Workout Can Request This Info"]}, status: :not_found
