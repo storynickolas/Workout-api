@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   resources :workouts, only: [:index, :show, :create, :destroy, :update]
   resources :exercises, only: [:index]
-  resources :users, only: [:show, :index, :destroy]
-  resources :workout_days, only: [:show, :create, :destroy]
-  resources :workout_exercises, only: [:create, :update]
+  resources :users, only: [:show, :index]
+
+
+  resources :workout_days, only: [:index, :show, :create, :destroy]
+
+  resources :workout_exercises, only: [:index, :show, :create, :update]
 
 
   resources :schedules, only: [:show]
@@ -13,7 +16,6 @@ Rails.application.routes.draw do
 
   post "/login", to: "sessions#create"
   post "/signup", to: "users#create"
-  # post "/signup", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
   post "/saved_workouts", to: "saved_workout#create"
@@ -22,5 +24,7 @@ Rails.application.routes.draw do
   delete "/saved_workouts/:id", to: "saved_workout#destroy"
 
   get "/user_workouts/:id", to: "workouts#userWorkouts"
+
+  # resources :users, only: [destroy]
 
 end

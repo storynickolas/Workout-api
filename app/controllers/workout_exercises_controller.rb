@@ -15,10 +15,10 @@ class WorkoutExercisesController < ApplicationController
 
   def create
     program = WorkoutExercise.create(program_params)
-    if program.valid?
+    if program.valid?  && session[:user_id] == program.workout.user_id
       render json: program, status: :created
     else
-      render json: { errors: program.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: "Workout does not belong to User" }, status: :unprocessable_entity
     end
   end
 
