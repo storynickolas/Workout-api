@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: workout_api_production
-  username: workout_api
-  password: <%= ENV['WORKOUT_API_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
