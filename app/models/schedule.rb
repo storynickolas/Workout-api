@@ -3,5 +3,5 @@ class Schedule < ApplicationRecord
   has_many :workout_days
   has_many :workouts, through: :workout_days
 
-  
+  validates :user_id, uniqueness: true
 end

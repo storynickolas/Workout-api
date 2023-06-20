@@ -6,8 +6,10 @@ class SchedulesController < ApplicationController
 
   def show
     schedule = Schedule.where(:id => params[:id])
-    if schedule
+    if schedule && session[:user_id] == schedule[0].user_id
       render json: schedule
+    elsif schedule.valid? 
+      render json: { error: "Unauthorized User" }, status: :unprocessable_entity
     else
       render_not_found_response
     end
@@ -15,7 +17,7 @@ class SchedulesController < ApplicationController
 
   def create
     schedule = Schedule.create(schedule_params)
-    if schedule.valid?
+    if schedule.valid? 
       render json: schedule, status: :created
     else
       render json: { errors: schedule.errors.full_messages }, status: :unprocessable_entity
@@ -36,7 +38,7 @@ class SchedulesController < ApplicationController
   # all methods below here are private
 
   def schedule_params
-    params.permit(:user_id, :Tuesday)
+    params.permit(:user_id)
   end
 
 end

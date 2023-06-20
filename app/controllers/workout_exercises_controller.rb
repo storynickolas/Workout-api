@@ -24,7 +24,7 @@ class WorkoutExercisesController < ApplicationController
 
   def destroy
     program = WorkoutExercise.find_by(id: params[:id])
-    if program 
+    if program && session[:user_id] == program.workout.user_id
       program.destroy
       head :no_content
     else
@@ -34,7 +34,7 @@ class WorkoutExercisesController < ApplicationController
 
   def update
     program = WorkoutExercise.where(:id => params[:id])
-    if program
+    if program && session[:user_id] == program.workout.user_id
       program.update(program_params)
       render json: program
     else

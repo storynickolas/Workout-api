@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :workout_exercises, only: [:index, :show, :create, :update]
 
 
-  resources :schedules, only: [:show]
+  resources :schedules, only: [:index, :show, :create]
   # resources :saved_workout, only: [:index, :show, :create, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # route to test your configuration

@@ -15,8 +15,10 @@ class SavedWorkoutController < ApplicationController
 
   def create
     saved = SavedWorkout.create(saved_params)
-    if saved.valid?
+    if saved.valid? && session[:user_id] == saved.user_id
       render json: saved, status: :created
+    elsif saved.valid? 
+      render json: { error: "Unauthorized User" }, status: :unprocessable_entity
     else
       render json: { errors: saved.errors.full_messages }, status: :unprocessable_entity
     end
@@ -24,9 +26,11 @@ class SavedWorkoutController < ApplicationController
 
   def destroy
     saved = SavedWorkout.find_by(id: params[:id])
-    if saved 
+    if saved  && session[:user_id] == saved.user_id
       saved.destroy
       head :no_content
+    elsif saved.valid? 
+      render json: { error: "Unauthorized User" }, status: :unprocessable_entity
     else
       render json: {errors: ["Workout Does Not Exist"]}, status: :not_found
     end
